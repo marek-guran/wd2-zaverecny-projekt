@@ -61,6 +61,12 @@ h2 {
 .card {
     border: 1px solid #ccc;
     margin-bottom: 2rem;
+    border-radius: 20px!important;
+}
+
+img {
+    border-top-right-radius: 20px!important;
+    border-top-left-radius: 20px!important;
 }
 
 .card-img-top {
