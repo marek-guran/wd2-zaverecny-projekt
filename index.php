@@ -63,8 +63,10 @@
                     die("Connection failed: " . mysqli_connect_error());
                 }
 
+                $nadpis = '';
+                
                 // Query database for data
-                $sql = "SELECT obrazok, nadpis, datum FROM posts ORDER BY id DESC";
+                $sql = "SELECT obrazok, nadpis, datum, popis FROM posts ORDER BY id DESC";
                 $result = mysqli_query($conn, $sql);
 
                 // Check if query executed successfully
@@ -77,13 +79,17 @@
                         echo '          <h5 class="card-title">' . $row["nadpis"] . '</h5>';
                         echo '          <div class="d-flex justify-content-between align-items-center">';
                         echo '              <div class="btn-group">';
-                        echo '                  <button type="button" class="btn btn-sm btn-outline-secondary">Otvoriť</button>';
+                        echo '                  <button type="button" class="btn btn-sm btn-outline-secondary open-btn" data-bs-toggle="modal" data-bs-target="#myModal" data-desc="' . $row["popis"] . '">Otvoriť</button>';
                         echo '              </div>';
                         echo '              <small class="text-muted">Vytvorené ' . $row["datum"] . '</small>';
                         echo '          </div>';
                         echo '      </div>';
                         echo '  </div>';
                         echo '</div>';
+
+                        if (empty($nadpis)) {
+                            $nadpis = $row['nadpis'];
+                        }
                     }
                 } else {
                     echo "No data found in database.";
@@ -95,13 +101,46 @@
             </div>
         </section>
     </div>
+
+    <!-- Modal Popup -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel"><?php echo $nadpis; ?></h5> <!-- Replace 'Article Description' with $nadpis variable -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="articleDesc"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="container mt-5">
         <p class="float-end"><a href="#">Späť na začiatok</a></p>
         <p>&copy;
             <?php echo date("Y"); ?> Marek Guráň.
         </p>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let openBtns = document.querySelectorAll('.open-btn');
+
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let desc = btn.dataset.desc;
+                let articleDescEl = document.querySelector('#articleDesc');
+                articleDescEl.innerHTML = desc;
+            })
+        });
+    </script>
+    <style>
+        .modal-content{
+            border-radius: 16px;
+        }
+    </style>
 </body>
 
 </html>

@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $datum = date("Y-m-d");
 
     // Insert data into posts table
-    $sql = "INSERT INTO posts (nadpis, text, obrazok, datum) VALUES ('$nadpis', '$text', '$obrazok', '$datum')";
+    $sql = "INSERT INTO posts (nadpis, popis, obrazok, datum) VALUES ('$nadpis', '$text', '$obrazok', '$datum')";
 
     // Execute query
     if (mysqli_query($conn, $sql)) {
