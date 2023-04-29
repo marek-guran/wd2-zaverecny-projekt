@@ -64,7 +64,7 @@
                 }
 
                 // Query database for data
-                $sql = "SELECT obrazok, nadpis, datum FROM posts";
+                $sql = "SELECT obrazok, nadpis, datum FROM posts ORDER BY id DESC";
                 $result = mysqli_query($conn, $sql);
 
                 // Check if query executed successfully
