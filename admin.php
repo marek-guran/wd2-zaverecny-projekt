@@ -95,6 +95,7 @@ mysqli_close($conn);
         <label for="obrazok">Obrázok:</label><br>
         <input type="text" id="obrazok" name="obrazok"><br>
 
+        <input type="hidden" name="create_post" value="1">
         <input type="submit" value="Odoslať">
     </form>
 
