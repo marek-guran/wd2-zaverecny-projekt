@@ -48,7 +48,7 @@
         <!-- Posts Section -->
         <section>
             <h2>Články</h2>
-            <div class="row">
+            <div class="row" id="clanky">
                 <?php
                 $servername = "localhost";
                 $username = "admin";
@@ -127,6 +127,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         let openBtns = document.querySelectorAll('.open-btn');
         let modalTitle = document.querySelector('.modal-title');
@@ -141,6 +142,8 @@
             })
         });
     </script>
+
+    <script src="js/ajax.js"></script>
 
     <style>
         .modal-content {
