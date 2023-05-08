@@ -10,44 +10,30 @@
 </head>
 
 <body>
-    <!-- Navigation Menu -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand " href="#">Môj Blog</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Domov<span class="visually-hidden">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">O mne</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Kontakt</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="admin.php">Admin</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <?php include 'php/nav.php'; ?>
+
     <!-- Banner -->
     <div class="jumbotron">
         <h1 class="display-4 ">Vitajte na mojom blogu!</h1>
         <p class="lead ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et felis elit. Nunc ornare est
             justo, vel viverra nisi convallis ut.</p>
         <hr class="my-4">
-        <p class="">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et felis elit. Nunc ornare est justo,
-            vel
-            viverra nisi convallis ut.</p>
+        <p class="">Použité: php, html, css, js, bootstrap, ajax, jquery, SQL.</p>
     </div>
     <div class="container">
         <!-- Posts Section -->
+        <!-- Posts Section -->
         <section>
-            <h2>Články</h2>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Články</h2>
+                <form class="rounded-pill bg-light p-1" method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-sm border-0" name="search"
+                            placeholder="Hľadať">
+                        <button class="btn btn-outline-secondary rounded-pill" type="submit">Hľadať</button>
+                    </div>
+                </form>
+            </div>
             <div class="row" id="clanky">
                 <?php
                 $servername = "localhost";
@@ -65,8 +51,15 @@
 
                 $nadpis = '';
 
-                // Query database for data
-                $sql = "SELECT obrazok, nadpis, datum, popis FROM posts ORDER BY id DESC";
+                // Search query
+                if (isset($_GET['search']) && !empty($_GET['search'])) {
+                    $search = $_GET['search'];
+                    $sql = "SELECT obrazok, nadpis, datum, popis FROM posts WHERE nadpis LIKE '%$search%' ORDER BY id DESC";
+                } else {
+                    // Query all posts
+                    $sql = "SELECT obrazok, nadpis, datum, popis FROM posts ORDER BY id DESC";
+                }
+
                 $result = mysqli_query($conn, $sql);
 
                 // Check if query executed successfully
@@ -79,7 +72,7 @@
                         echo '          <h5 class="card-title">' . $row["nadpis"] . '</h5>';
                         echo '          <div class="d-flex justify-content-between align-items-center">';
                         echo '              <div class="btn-group">';
-                        echo '                  <button type="button" class="btn btn-sm btn-outline-secondary open-btn" data-bs-toggle="modal" data-bs-target="#myModal" data-desc="' . $row["popis"] . '">Otvoriť</button>';
+                        echo '                  <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill open-btn" data-bs-toggle="modal" data-bs-target="#myModal" data-desc="' . $row["popis"] . '">Otvoriť</button>';
                         echo '              </div>';
                         echo '              <small class="text-muted">Vytvorené ' . $row["datum"] . '</small>';
                         echo '          </div>';
@@ -119,12 +112,7 @@
         </div>
     </div>
 
-    <footer class="container mt-5">
-        <p class="float-end"><a href="#">Späť na začiatok</a></p>
-        <p>&copy;
-            <?php echo date("Y"); ?> Marek Guráň.
-        </p>
-    </footer>
+    <?php include 'php/footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -140,7 +128,7 @@
                 articleDescEl.innerHTML = desc;
                 modalTitle.innerHTML = title;
             })
-        });
+    });
     </script>
 
     <script src="js/ajax.js"></script>

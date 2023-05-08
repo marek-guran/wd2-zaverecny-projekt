@@ -28,7 +28,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         echo '          <h5 class="card-title">' . $row["nadpis"] . '</h5>';
         echo '          <div class="d-flex justify-content-between align-items-center">';
         echo '              <div class="btn-group">';
-        echo '                  <button type="button" class="btn btn-sm btn-outline-secondary open-btn" data-bs-toggle="modal" data-bs-target="#myModal" data-desc="' . $row["popis"] . '">Otvoriť</button>';
+        echo '                  <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill open-btn" data-bs-toggle="modal" data-bs-target="#myModal" data-desc="' . $row["popis"] . '">Otvoriť</button>';
         echo '              </div>';
         echo '              <small class="text-muted">Vytvorené ' . $row["datum"] . '</small>';
         echo '          </div>';
