@@ -11,10 +11,10 @@
                     <a class="nav-link" href="index.php">Domov<span class="visually-hidden">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">O mne</a>
+                    <a class="nav-link" href="o_mne.php">O mne</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Kontakt</a>
+                    <a class="nav-link" href="kontakt.php">Kontakt</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="admin.php">Admin</a>

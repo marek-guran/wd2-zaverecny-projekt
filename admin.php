@@ -122,8 +122,8 @@ mysqli_close($conn);
         <div class="row mt-5">
             <div class="col-md-12">
                 <h2 class="text-center">Zoznam príspevkov</h2>
-                <table class="table table-striped table-hover">
-                    <thead>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class= "table-dark">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nadpis</th>
