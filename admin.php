@@ -27,8 +27,8 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Check if form was submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Check if form was submitted to create a new post
+if (isset($_POST["create_post"])) {
     // Sanitize user input to prevent SQL injection
     $nadpis = mysqli_real_escape_string($conn, $_POST["nadpis"]);
     $text = mysqli_real_escape_string($conn, $_POST["text"]);
@@ -47,6 +47,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 }
+
+// Check if delete button was pressed
+if (isset($_POST["delete_post"])) {
+    $post_id = $_POST["delete_post"];
+    $sql = "DELETE FROM posts WHERE id = '$post_id'";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "Record deleted successfully.";
+        header("refresh:3;url=/ZVPRJKT/index.php"); // redirect to homepage after 3 seconds
+        exit;
+    } else {
+        echo "Error deleting record: " . mysqli_error($conn);
+    }
+}
+
+// Get all posts from database
+$sql = "SELECT * FROM posts";
+$result = mysqli_query($conn, $sql);
 
 // Close database connection
 mysqli_close($conn);
@@ -83,6 +101,48 @@ mysqli_close($conn);
     <form method="post">
         <input type="submit" name="logout" value="Odhlásiť">
     </form>
+
+    <h2>Zoznam príspevkov</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nadpis</th>
+                <th scope="col">Dátum</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Connect to database
+            $conn = mysqli_connect($host, $user, $password, $dbname);
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+
+            // Retrieve posts from database
+            $sql = "SELECT * FROM posts ORDER BY datum DESC";
+            $result = mysqli_query($conn, $sql);
+
+            // Display posts in table
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<th scope='row'>" . $row["id"] . "</th>";
+                    echo "<td>" . $row["nadpis"] . "</td>";
+                    echo "<td>" . $row["datum"] . "</td>";
+                    echo "<td><a href='edit.php?id=" . $row["id"] . "' class='btn btn-primary'>Upraviť</a> <form method='post' style='display: inline;'><input type='hidden' name='delete_id' value='" . $row["id"] . "'><input type='submit' class='btn btn-danger' value='Odstrániť' onclick=\"return confirm('Naozaj chcete odstrániť tento príspevok?')\"></form></td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5'>Žiadne príspevky.</td></tr>";
+            }
+
+            // Close database connection
+            mysqli_close($conn);
+            ?>
+        </tbody>
+    </table>
 
     <?php include 'php/footer.php'; ?>
 
