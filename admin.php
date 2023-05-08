@@ -55,7 +55,7 @@ if (isset($_POST["delete_post"])) {
 
     if (mysqli_query($conn, $sql)) {
         echo "Record deleted successfully.";
-        header("refresh:3;url=/ZVPRJKT/index.php"); // redirect to homepage after 3 seconds
+        header("refresh:3;url=/ZVPRJKT/admin.php"); // redirect to homepage after 3 seconds
         exit;
     } else {
         echo "Error deleting record: " . mysqli_error($conn);
@@ -131,7 +131,11 @@ mysqli_close($conn);
                     echo "<th scope='row'>" . $row["id"] . "</th>";
                     echo "<td>" . $row["nadpis"] . "</td>";
                     echo "<td>" . $row["datum"] . "</td>";
-                    echo "<td><a href='edit.php?id=" . $row["id"] . "' class='btn btn-primary'>Upraviť</a> <form method='post' style='display: inline;'><input type='hidden' name='delete_id' value='" . $row["id"] . "'><input type='submit' class='btn btn-danger' value='Odstrániť' onclick=\"return confirm('Naozaj chcete odstrániť tento príspevok?')\"></form></td>";
+                    echo "<td><a href='edit.php?id=" . $row["id"] . "' class='btn btn-primary'>Upraviť</a> ";
+                    echo "<form method='post' style='display: inline;'>";
+                    echo "<input type='hidden' name='delete_post' value='" . $row["id"] . "'>";
+                    echo "<button type='submit' class='btn btn-danger'>Delete</button>";
+                    echo "</form></td>";
                     echo "</tr>";
                 }
             } else {
@@ -143,6 +147,7 @@ mysqli_close($conn);
             ?>
         </tbody>
     </table>
+
 
     <?php include 'php/footer.php'; ?>
 
