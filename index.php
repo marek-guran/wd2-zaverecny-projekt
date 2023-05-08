@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <?php include 'php/nav.php'; ?>
+    <?php include 'php/nav.php';?>
 
     <!-- Banner -->
     <div class="jumbotron">
@@ -22,18 +22,8 @@
     </div>
     <div class="container">
         <!-- Posts Section -->
-        <!-- Posts Section -->
         <section>
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>Články</h2>
-                <form class="rounded-pill bg-light p-1" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control form-control-sm border-0" name="search"
-                            placeholder="Hľadať">
-                        <button class="btn btn-outline-secondary rounded-pill" type="submit">Hľadať</button>
-                    </div>
-                </form>
-            </div>
+            <h2>Články</h2>
             <div class="row" id="clanky">
                 <?php
                 $servername = "localhost";
@@ -51,15 +41,8 @@
 
                 $nadpis = '';
 
-                // Search query
-                if (isset($_GET['search']) && !empty($_GET['search'])) {
-                    $search = $_GET['search'];
-                    $sql = "SELECT obrazok, nadpis, datum, popis FROM posts WHERE nadpis LIKE '%$search%' ORDER BY id DESC";
-                } else {
-                    // Query all posts
-                    $sql = "SELECT obrazok, nadpis, datum, popis FROM posts ORDER BY id DESC";
-                }
-
+                // Query database for data
+                $sql = "SELECT obrazok, nadpis, datum, popis FROM posts ORDER BY id DESC";
                 $result = mysqli_query($conn, $sql);
 
                 // Check if query executed successfully
@@ -79,7 +62,7 @@
                         echo '      </div>';
                         echo '  </div>';
                         echo '</div>';
-
+                
                         if (empty($nadpis)) {
                             $nadpis = $row['nadpis'];
                         }
@@ -112,7 +95,7 @@
         </div>
     </div>
 
-    <?php include 'php/footer.php'; ?>
+    <?php include 'php/footer.php';?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -128,7 +111,7 @@
                 articleDescEl.innerHTML = desc;
                 modalTitle.innerHTML = title;
             })
-    });
+        });
     </script>
 
     <script src="js/ajax.js"></script>

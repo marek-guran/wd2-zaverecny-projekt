@@ -37,9 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("location: /ZVPRJKT/admin.php");
         exit;
     } else {
-        // Display error message
-        echo "Query: ".$sql;
-
         echo "Invalid username or password.";
     }
 }
@@ -50,19 +47,71 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Login</title>
+    <title>Prihlásenie</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Centers the form horizontally and adds some spacing between the top of the screen and the form */
+        form {
+            margin: auto;
+            margin-top: 50px;
+            max-width: 400px;
+            /* Limits the maximum width of the form */
+        }
+    </style>
 </head>
+
 <body>
-    <h2>Please log in</h2>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username"><br>
+    <?php include 'php/nav.php'; ?>
+    <div class="container">
+        <h2 class="text-center">Prihlásenie</h2>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <div class="form-group row">
+                <label for="username" class="col-sm-2 col-form-label">
+                    <h5>Meno:</h5>
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control rounded-pill" id="username" name="username"
+                        style="border-radius: 20px;">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-sm-2 col-form-label">
+                    <h5>Heslo:</h5>
+                </label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control rounded-pill" id="password" name="password"
+                        style="border-radius: 20px;">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-bg btn-outline-secondary rounded-pill open-btn">
+                    <h4>Prihlásiť sa</h4>
+                </button>
+            </div>
+        </form>
+    </div>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
 
-        <input type="submit" value="Log in">
-    </form>
+    <style>
+        .btn {
+            margin-top: 20px;
+        }
+    </style>
+
+
+
+    <?php include 'php/footer.php'; ?>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-7hSmB3YK0rLPMiJGJewvt9Upi6fM3/9l+HheS/KZrY1lS4ImqIj7vV7OidOeXp5B" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

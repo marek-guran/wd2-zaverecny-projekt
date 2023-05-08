@@ -6,6 +6,15 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
+
+// Check if logout button was pressed
+if (isset($_POST["logout"])) {
+    session_unset();
+    session_destroy();
+    header("location: login.php");
+    exit;
+}
+
 // Set database credentials
 $host = "localhost";
 $user = "admin";
@@ -45,10 +54,16 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+
+    <?php include 'php/nav.php'; ?>
 
     <h2>Vytvoriť nový príspevok</h2>
 
@@ -65,5 +80,15 @@ mysqli_close($conn);
         <input type="submit" value="Odoslať">
     </form>
 
+    <form method="post">
+        <input type="submit" name="logout" value="Odhlásiť">
+    </form>
+
+    <?php include 'php/footer.php'; ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
+
 </html>
