@@ -40,8 +40,8 @@ if (isset($_POST["create_post"])) {
 
     // Execute query
     if (mysqli_query($conn, $sql)) {
-        echo "New record created successfully.";
-        header("refresh:3;url=/ZVPRJKT/index.php"); // redirect to homepage after 3 seconds
+        echo "Článok bol pridaný.";
+        header("refresh:3;url=/ZVPRJKT/admin.php"); // redirect to homepage after 3 seconds
         exit;
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -54,7 +54,7 @@ if (isset($_POST["delete_post"])) {
     $sql = "DELETE FROM posts WHERE id = '$post_id'";
 
     if (mysqli_query($conn, $sql)) {
-        echo "Record deleted successfully.";
+        echo "Článok bol vymazaný.";
         header("refresh:3;url=/ZVPRJKT/admin.php"); // redirect to homepage after 3 seconds
         exit;
     } else {
@@ -75,6 +75,7 @@ mysqli_close($conn);
 
 <head>
     <title>Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -83,77 +84,86 @@ mysqli_close($conn);
 
     <?php include 'php/nav.php'; ?>
 
-    <h2>Vytvoriť nový príspevok</h2>
-
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <label for="nadpis">Nadpis:</label><br>
-        <input type="text" id="nadpis" name="nadpis"><br>
-
-        <label for="text">Text:</label><br>
-        <textarea id="text" name="text"></textarea><br>
-
-        <label for="obrazok">Obrázok:</label><br>
-        <input type="text" id="obrazok" name="obrazok"><br>
-
-        <input type="hidden" name="create_post" value="1">
-        <input type="submit" value="Odoslať">
-    </form>
-
-    <form method="post">
-        <input type="submit" name="logout" value="Odhlásiť">
-    </form>
-
-    <h2>Zoznam príspevkov</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nadpis</th>
-                <th scope="col">Dátum</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Connect to database
-            $conn = mysqli_connect($host, $user, $password, $dbname);
-            if (!$conn) {
-                die("Connection failed: " . mysqli_connect_error());
-            }
-
-            // Retrieve posts from database
-            $sql = "SELECT * FROM posts ORDER BY datum DESC";
-            $result = mysqli_query($conn, $sql);
-
-            // Display posts in table
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo "<th scope='row'>" . $row["id"] . "</th>";
-                    echo "<td>" . $row["nadpis"] . "</td>";
-                    echo "<td>" . $row["datum"] . "</td>";
-                    echo "<td><a href='edit.php?id=" . $row["id"] . "' class='btn btn-primary'>Upraviť</a> ";
-                    echo "<form method='post' style='display: inline;'>";
-                    echo "<input type='hidden' name='delete_post' value='" . $row["id"] . "'>";
-                    echo "<button type='submit' class='btn btn-danger'>Delete</button>";
-                    echo "</form></td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5'>Žiadne príspevky.</td></tr>";
-            }
-
-            // Close database connection
-            mysqli_close($conn);
-            ?>
-        </tbody>
-    </table>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 class="mb-3 text-center">Vytvoriť nový príspevok</h2>
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
+                    class="border rounded p-3" style="border-radius: 20px!important;">
+                    <div class="mb-3">
+                        <label for="nadpis" class="form-label">Nadpis:</label>
+                        <input type="text" id="nadpis" name="nadpis" class="form-control" style="border-radius: 20px!important;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Text:</label>
+                        <textarea id="text" name="text" class="form-control" style="border-radius: 20px!important;"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="obrazok" class="form-label">Obrázok:</label>
+                        <input type="text" id="obrazok" name="obrazok" class="form-control" style="border-radius: 20px!important;">
+                    </div>
+                    <div class="text-center">
+                        <input type="hidden" name="create_post" value="1">
+                        <button type="submit" class="btn btn-primary rounded-pill">Odoslať</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
 
-    <?php include 'php/footer.php'; ?>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <h2 class="text-center">Zoznam príspevkov</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nadpis</th>
+                            <th scope="col">Dátum</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Connect to database
+                        $conn = mysqli_connect($host, $user, $password, $dbname);
+                        if (!$conn) {
+                            die("Connection failed: " . mysqli_connect_error());
+                        }
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        // Retrieve posts from database
+                        $sql = "SELECT * FROM posts ORDER BY id DESC";
+                        $result = mysqli_query($conn, $sql);
+
+                        // Display posts in table
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo "<tr>";
+                                echo "<th scope='row'>" . $row["id"] . "</th>";
+                                echo "<td>" . $row["nadpis"] . "</td>";
+                                echo "<td>" . $row["datum"] . "</td>";
+                                echo "<td><a href='edit.php?id=" . $row["id"] . "' class='btn btn-primary rounded-pill'>Upraviť</a> ";
+                                echo "<form method='post' style='display: inline;'>";
+                                echo "<input type='hidden' name='delete_post' value='" . $row["id"] . "'>";
+                                echo "<button type='submit' class='btn btn-danger rounded-pill'>Odstrániť</button>";
+                                echo "</form></td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='5'>Žiadne príspevky.</td></tr>";
+                        }
+
+                        // Close database connection
+                        mysqli_close($conn);
+                        ?>
+                    </tbody>
+                </table>
+
+
+                <?php include 'php/footer.php'; ?>
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </body>
 
