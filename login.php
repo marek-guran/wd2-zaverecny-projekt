@@ -66,7 +66,7 @@ mysqli_close($conn);
 
 <body>
     <?php include 'php/nav.php'; ?>
-    <div class="container">
+    <div class="container" style= "padding-top: 70px!important;">
         <h2 class="text-center">Prihlásenie</h2>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="form-group row">

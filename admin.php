@@ -84,7 +84,12 @@ mysqli_close($conn);
 
     <?php include 'php/nav.php'; ?>
 
-    <div class="container mt-5">
+    <form method="post">
+        <input type="submit" name="logout" value="Odhlásiť" class="btn btn-danger rounded-pill"
+            style="position: fixed;  right: 1rem; margin-top: 20px; width: 90px !important;">
+    </form>
+
+    <div class="container mt-5" style="padding-top: 70px!important;">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <h2 class="mb-3 text-center">Vytvoriť nový príspevok</h2>
@@ -92,15 +97,18 @@ mysqli_close($conn);
                     class="border rounded p-3" style="border-radius: 20px!important;">
                     <div class="mb-3">
                         <label for="nadpis" class="form-label">Nadpis:</label>
-                        <input type="text" id="nadpis" name="nadpis" class="form-control" style="border-radius: 20px!important;">
+                        <input type="text" id="nadpis" name="nadpis" class="form-control"
+                            style="border-radius: 20px!important;">
                     </div>
                     <div class="mb-3">
                         <label for="text" class="form-label">Text:</label>
-                        <textarea id="text" name="text" class="form-control" style="border-radius: 20px!important;"></textarea>
+                        <textarea id="text" name="text" class="form-control"
+                            style="border-radius: 20px!important;"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="obrazok" class="form-label">Obrázok:</label>
-                        <input type="text" id="obrazok" name="obrazok" class="form-control" style="border-radius: 20px!important;">
+                        <input type="text" id="obrazok" name="obrazok" class="form-control"
+                            style="border-radius: 20px!important;">
                     </div>
                     <div class="text-center">
                         <input type="hidden" name="create_post" value="1">

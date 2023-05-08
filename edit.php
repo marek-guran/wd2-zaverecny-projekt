@@ -77,7 +77,7 @@ mysqli_close($conn);
 
     <?php include 'php/nav.php'; ?>
 
-    <div class="container">
+    <div class="container" style= "padding-top: 70px!important;">
         <h2 class="text-center">Upraviť</h2>
         <form method="post" id="myForm">
             <div class="form-group">
@@ -107,8 +107,8 @@ mysqli_close($conn);
                     value="<?php echo $row['obrazok']; ?>" style="border-radius: 20px;">
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-bg btn-outline-secondary rounded-pill open-btn" onclick="submitForm()">
-                    <h4>Uložiť</h4>
+                <button type="submit" class="btn btn-bg btn-outline-primary rounded-pill open-btn" style= "margin-top: 10px!important;" onclick="submitForm()">
+                    <h5>Uložiť</h5>
                 </button>
             </div>
         </form>

@@ -13,7 +13,7 @@
     <?php include 'php/nav.php';?>
 
     <!-- Banner -->
-    <div class="jumbotron">
+    <div class="jumbotron" style= "padding-top: 70px!important;">
         <h1 class="display-4 ">Vitajte na mojom blogu!</h1>
         <p class="lead ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et felis elit. Nunc ornare est
             justo, vel viverra nisi convallis ut.</p>
@@ -79,7 +79,7 @@
     </div>
 
     <!-- Modal Popup -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style= "padding-top: 70px!important;" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
