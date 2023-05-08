@@ -97,3 +97,7 @@ footer {
 .float-end {
     float: right;
 }
+
+.modal-dialog .modal-content {
+    border-radius: 16px!important;
+}

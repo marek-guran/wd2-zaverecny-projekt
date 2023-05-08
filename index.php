@@ -64,7 +64,7 @@
                 }
 
                 $nadpis = '';
-                
+
                 // Query database for data
                 $sql = "SELECT obrazok, nadpis, datum, popis FROM posts ORDER BY id DESC";
                 $result = mysqli_query($conn, $sql);
@@ -104,10 +104,12 @@
 
     <!-- Modal Popup -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel"><?php echo $nadpis; ?></h5> <!-- Replace 'Article Description' with $nadpis variable -->
+                    <h5 class="modal-title" id="myModalLabel">
+                        <?php echo $nadpis; ?>
+                    </h5> <!-- Replace 'Article Description' with $nadpis variable -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -127,18 +129,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let openBtns = document.querySelectorAll('.open-btn');
+        let modalTitle = document.querySelector('.modal-title');
 
         openBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 let desc = btn.dataset.desc;
+                let title = btn.closest('.card').querySelector('.card-title').textContent;
                 let articleDescEl = document.querySelector('#articleDesc');
                 articleDescEl.innerHTML = desc;
+                modalTitle.innerHTML = title;
             })
         });
     </script>
+
     <style>
-        .modal-content{
-            border-radius: 16px;
+        .modal-content {
+            border-radius: 20px;
         }
     </style>
 </body>
