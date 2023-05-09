@@ -50,6 +50,7 @@ mysqli_close($conn);
 
 <head>
     <title>Prihlásenie</title>
+    <link rel="icon" href="ikona.ico" type="image/x-icon">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
